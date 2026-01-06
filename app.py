@@ -6,38 +6,33 @@ import tensorflow as tf
 # --- 1. ตั้งค่าหน้าตาแอป ---
 st.markdown("""
     <style>
-    /* 1. โหลดฟอนต์ Sarabun */
     @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap');
-
-    /* 2. บังคับฟอนต์สารบรรณเฉพาะส่วนที่จำเป็น ไม่ให้รบกวนระบบไอคอน */
+    
+    /* บังคับฟอนต์สารบรรณ */
     html, body, .stMarkdown, p, label, h1, h2, h3, h4, table, th, td {
         font-family: 'Sarabun', sans-serif !important;
     }
 
-    /* 3. แก้ไขปัญหา Expander ซ้อน (หัวใจสำคัญ) */
-    /* ซ่อนข้อความ Accessibility ที่โผล่มาเป็นขยะ เช่น keyboard arrow right */
-    div[data-testid="stExpander"] summary span[data-testid="stMarkdownContainer"] p {
+    /* --- วิธีแก้ "keyboard arrow right" แบบเด็ดขาด --- */
+    /* 1. ซ่อนข้อความขยะที่ระบบสร้างขึ้นใน Expander */
+    [data-testid="stExpander"] summary span[data-testid="stMarkdownContainer"] p {
         display: none !important;
     }
 
-    /* แสดงเฉพาะข้อความที่เราพิมพ์ลงไปใน expander เท่านั้น */
-    div[data-testid="stExpander"] summary > div {
-        font-family: 'Sarabun', sans-serif !important;
-        font-size: 18px !important;
-        font-weight: bold !important;
-        color: #2D5A27 !important;
-        padding-left: 10px !important;
+    /* 2. แสดงเฉพาะหัวข้อที่เราพิมพ์ลงไป */
+    [data-testid="stExpander"] summary > div:not([data-testid="stMarkdownContainer"]) {
+        display: none !important;
     }
 
-    /* 4. จัดตำแหน่งลูกศรให้ถูกต้องและไม่ซ้อนทับ */
-    div[data-testid="stExpander"] svg[data-testid="stExpanderIcon"] {
-        color: #2D5A27 !important;
+    /* 3. จัดการให้หัวข้อหลักแสดงผลสวยงามและมีระยะห่าง */
+    [data-testid="stExpander"] summary div[data-testid="stMarkdownContainer"] {
+        display: block !important;
+        padding-left: 30px !important;
     }
-
-    /* 5. ตกแต่งปุ่มกดให้ข้อความชัดเจน */
-    div.stButton > button {
-        font-family: 'Sarabun', sans-serif !important;
-        height: 3em !important;
+    
+    [data-testid="stExpander"] svg {
+        position: absolute !important;
+        left: 10px !important;
     }
     </style>
     """, unsafe_allow_html=True)
